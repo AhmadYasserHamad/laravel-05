@@ -4,18 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+use App\Models\Comment;
+use App\Models\User;
+
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('replies', function (Blueprint $table) {
-            $table->id();
-            $table->string('comment');
-            $table->bigInteger('user_id');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('reply');
+            $table->foreignIdFor(Comment::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
+            // $table->timestamp('created_at')->default('timestamp');
         });
     }
 

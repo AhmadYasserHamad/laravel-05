@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\PostStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('post_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100);
-            $table->text('body');
-            $table->foreignIdFor(PostStatus::class)->constrained();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('type', 20);
+            $table->timestamp('created_at');
+            // $table->timestamp('updated_at')->default('timestamp');
+            // $table->timestamp('deleted_at')->default('timestamp');
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('post_statuses');
     }
 };
